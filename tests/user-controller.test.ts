@@ -5,9 +5,9 @@ let baseURL: string = 'http://localhost:3000/users';
 
 test.describe('User management API', () => {
 
-    test('GET / - should return empty when no users', async ({ request }) => {
+    test('GET /:id - should return a user by ID', async ({ request }) => {
         const response = await request.post(`${baseURL}`)
-        expect(response.status()).toBe(StatusCodes.OK)
+        expect(response.status()).toBe(StatusCodes.CREATED)
         const responseBody = await response.json()
         expect(responseBody.id).toBeDefined()
         console.log(responseBody)
@@ -22,9 +22,6 @@ test.describe('User management API', () => {
 
     });
 
-    test('GET /:id - should return a user by ID', async ({ request }) => {
-
-    });
 
     test('GET /:id - should return 404 if user not found', async ({ request }) => {
         const response = await request.get(`${baseURL}/1000`)
@@ -35,7 +32,7 @@ test.describe('User management API', () => {
 
     test('POST / - should add a new user', async ({ request }) => {
         const response = await request.post(`${baseURL}`)
-        expect(response.status()).toBe(StatusCodes.OK)
+        expect(response.status()).toBe(StatusCodes.CREATED)
         const responseBody = await response.json()
         expect(responseBody.id).toBeDefined()
 
@@ -44,7 +41,7 @@ test.describe('User management API', () => {
     test('DELETE /:id - should delete a user by ID', async ({ request }) => {
 
         const response = await request.post(`${baseURL}`)
-        expect(response.status()).toBe(StatusCodes.OK)
+        expect(response.status()).toBe(StatusCodes.CREATED)
         const responseBody = await response.json()
         expect(responseBody.id).toBeDefined()
         const  id  = responseBody.id
