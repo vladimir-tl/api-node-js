@@ -7,7 +7,7 @@ test.describe('User management API', () => {
 
     test('GET / - should return empty when no users', async ({ request }) => {
         const response = await request.post(`${baseURL}`)
-        expect(response.status()).toBe(201)
+        expect(response.status()).toBe(StatusCodes.OK)
         const responseBody = await response.json()
         expect(responseBody.id).toBeDefined()
         console.log(responseBody)
@@ -16,7 +16,7 @@ test.describe('User management API', () => {
         console.log(id)
 
         const getResponse = await request.get(`${baseURL}/${id}`)
-        expect(getResponse.status()).toBe(StatusCodes.CREATED)
+        expect(getResponse.status()).toBe(StatusCodes.OK)
         const getResponseBody = await response.json()
         expect(getResponseBody.id).toBeDefined()
 
@@ -35,7 +35,7 @@ test.describe('User management API', () => {
 
     test('POST / - should add a new user', async ({ request }) => {
         const response = await request.post(`${baseURL}`)
-        expect(response.status()).toBe(StatusCodes.CREATED)
+        expect(response.status()).toBe(StatusCodes.OK)
         const responseBody = await response.json()
         expect(responseBody.id).toBeDefined()
 
@@ -44,13 +44,13 @@ test.describe('User management API', () => {
     test('DELETE /:id - should delete a user by ID', async ({ request }) => {
 
         const response = await request.post(`${baseURL}`)
-        expect(response.status()).toBe(StatusCodes.CREATED)
+        expect(response.status()).toBe(StatusCodes.OK)
         const responseBody = await response.json()
         expect(responseBody.id).toBeDefined()
         const  id  = responseBody.id
 
         const deleteResponse = await request.delete(`${baseURL}/${id}`)
-        expect(deleteResponse.status()).toBe(StatusCodes.CREATED)
+        expect(deleteResponse.status()).toBe(StatusCodes.OK)
         const deleteResponseBody = await deleteResponse.json()
         console.log(deleteResponseBody)
         const getResponse = await request.get(`${baseURL}/${id}`)
