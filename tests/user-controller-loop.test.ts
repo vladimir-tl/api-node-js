@@ -45,8 +45,19 @@ test.describe('User management API with loop', () => {
         expect(responseBody).toBe('[]');
     });
 
-    test('Create few users and verify total number', async ({ request }) => {
-
+    test('Should create N users and return exactly N users when retrieving all users', async ({ request }) => {
+        await request.post(`${baseURL}`);
+        await request.post(`${baseURL}`);
+        const responseAllUsers = await request.get(`${baseURL}`);
+        const responseBodyAllUsers = await responseAllUsers.json()
+        console.log(responseBodyAllUsers);
+        const userCount = responseBodyAllUsers.length;
+        console.log(`Number of users: ${userCount}`);
+        expect(userCount).toBe(2);
+        const firstUser = responseBodyAllUsers[0];
+        console.log('First user:', firstUser);
+        const secondUser = responseBodyAllUsers[1];
+        console.log('Second user:', secondUser);
     });
 
     test('Delete all users and verify empty response', async ({ request }) => {
